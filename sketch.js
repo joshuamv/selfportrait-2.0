@@ -29,6 +29,10 @@ function draw() {
     neuronsFire();
   }
 
+  if (sf>330) {
+    neuronsFire();
+  }
+
 }
 
 window.addEventListener("wheel", function(e) {
@@ -59,7 +63,7 @@ function soulCircle(szBig,szSmall){
 
 function neurons(){
   fill(255, 255, 0);
-  ellipse(mouseX, mouseY, 6)
+  ellipse(mouseX, mouseY, 6);
 }
 
 function neuronsFire(){
