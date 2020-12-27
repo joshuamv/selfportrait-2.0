@@ -12,7 +12,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
   //create particles
-  numPts = 160;
+  numPts = 10000;
   for(var i = 0 ; i < numPts ;i++){
     pts.push( {} ); // insert new object
     pts[i].idx = i; // give it an index
@@ -31,32 +31,28 @@ function draw() {
 
   //draw cricle and neurons
   soulCircle(12,8);
-  neurons();
+  neuronsFire();
 
   //when mouse is pressed fire neurons
   if (mouseIsPressed) {
-    soulCircle(25,20);
-    neuronsFire();
+    seePointer(25,20);
   }
   //when scale reaches 0 go to previous page
-  if (sf<0.2) {
-    sf = 1.5;
+  if (sf<1) {
+    sf = 2;
   }
   //when scale reaches full screen go to next page
-  if (sf>330) {
-    window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/page2.html");
-  }
-  if (sf<329) {
-    soul = true;
+  if (sf>250) {
+    window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/page5.html");
   }
 
 }
 
 window.addEventListener("wheel", function(e) {
   if (e.deltaY > 0)
-    sf *= 1.05;
+    sf *= 1.1;
   else
-    sf *= 0.91;
+    sf *= 0.98;
 });
 
 
@@ -64,25 +60,21 @@ window.addEventListener("wheel", function(e) {
 
 function soulCircle(szBig,szSmall){
   if(soul){
-    background(0, 0, 20);
+    background(0, 0, 0, 1);
     noStroke();
     //moving shadows
-    fill(150, 220, 255, 30);
-    ellipse((mouseX+(sin(frameCount*0.05)+1)*1.01), (mouseY-(sin(frameCount*0.06)+1)*1.08), (sin(frameCount*0.02)+19)*2.1);
-    ellipse((mouseX-(sin(frameCount*0.06)+1)*1.01), (mouseY+(sin(frameCount*0.08)+1)*1.03), (sin(frameCount*0.02)+19)*2.1);
-    ellipse((mouseX-(sin(frameCount*0.08)+1)*1.02), (mouseY+(sin(frameCount*0.05)+1)*1.01), (sin(frameCount*0.02)+19)*2.1);
-    //big ellipse
-    fill(255, 255, 255, 230);
-    ellipse(mouseX, mouseY, (sin(frameCount*0.02)+szBig));
+    fill(150, 220, 255, 1);
+    ellipse(mouseX, mouseY, 20);
     //little ellipse pointer
-    fill(255);
-    ellipse(mouseX, mouseY, (sin(frameCount*0.04)+szSmall));
+    fill(255, 255, 255, (50+(sf/2)));
+    ellipse(mouseX, mouseY, 10);
   }
 }
 
-function neurons(){
-  fill(255, 255, 255);
-  ellipse(mouseX, mouseY, 6);
+function seePointer(){
+  noStroke();
+  fill(255, 255, 1, 30);
+  ellipse(mouseX, mouseY, 11);
 }
 
 function neuronsFire(){
@@ -101,10 +93,14 @@ function initObj( obj ){
 	obj.x = random(width);
 	obj.y = random(height);
 	obj.w = random(1.01,1.9);
-	obj.c = [255, 255, 255];
+	obj.c = [random(255), random(255), 200];
 }
 
 function updateObj(obj){
+
+  // get values from sliders
+	var noiseScl = 2+(sf);
+	var screenScl = 10;
 
 	// random walk for each particle
 	// obj.x += random(-screenScl,screenScl);
@@ -113,14 +109,8 @@ function updateObj(obj){
 	// move the particle on each axis by mapping the noise function, with its current position.
 	// try different variations to get different landscapes
 	// try applying a similar formula to particle size (obj.w) and color array (obj.c)
-	obj.x += map(noise(234 + obj.y*2 , -947+ obj.x*2 ), 0, 1, -2, 2);
-  obj.y += map(noise(-123  + obj.x*2, 655 + obj.y*2 ), 0, 1, -2, 2);
-
-	// maintain screen edges (wrap around)
-	if(obj.x > width) obj.x = 0;
-	if(obj.x < 0) obj.x = width;
-	if(obj.y > height) obj.y = 0;
-	if(obj.y < 0) obj.y = height;
+	obj.x += sin(1 + obj.y*noiseScl , -1+ obj.x*noiseScl);
+  obj.y += noise(-123  + obj.x*noiseScl, 1 + obj.y*noiseScl );
 }
 
 
