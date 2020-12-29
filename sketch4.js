@@ -12,7 +12,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
   //create particles
-  numPts = 10000;
+  numPts = 6000;
   for(var i = 0 ; i < numPts ;i++){
     pts.push( {} ); // insert new object
     pts[i].idx = i; // give it an index
@@ -33,6 +33,7 @@ function draw() {
   soulCircle(12,8);
   neuronsFire();
 
+
   //when mouse is pressed fire neurons
   if (mouseIsPressed) {
     seePointer(25,20);
@@ -42,19 +43,10 @@ function draw() {
     sf = 2;
   }
   //when scale reaches full screen go to next page
-  if (sf>250) {
+  if (sf>230) {
     window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/page5.html");
   }
-
 }
-
-window.addEventListener("wheel", function(e) {
-  if (e.deltaY > 0)
-    sf *= 1.1;
-  else
-    sf *= 0.98;
-});
-
 
 ///functions///
 
@@ -66,7 +58,7 @@ function soulCircle(szBig,szSmall){
     fill(150, 220, 255, 1);
     ellipse(mouseX, mouseY, 20);
     //little ellipse pointer
-    fill(255, 255, 255, (50+(sf/2)));
+    fill(250, 255-(sf/2.5), 255-(sf/2.5), (50+(sf/2)));
     ellipse(mouseX, mouseY, 10);
   }
 }
@@ -80,7 +72,7 @@ function seePointer(){
 function neuronsFire(){
   // update particle
   for(var i = 0 ; i < pts.length ;i++){
-    updateObj( pts[i] );
+    updateObj(pts[i]);
   }
   // draw particle
   for(var i = 0 ; i < pts.length ;i++){
@@ -92,19 +84,15 @@ function neuronsFire(){
 function initObj( obj ){
 	obj.x = random(width);
 	obj.y = random(height);
-	obj.w = random(1.01,1.9);
-	obj.c = [random(255), random(255), 200];
+	obj.w = random(1.01);
+	obj.c = [random(5), random(100+(sf*5)), 0];
 }
 
 function updateObj(obj){
 
   // get values from sliders
-	var noiseScl = 2+(sf);
-	var screenScl = 10;
-
-	// random walk for each particle
-	// obj.x += random(-screenScl,screenScl);
-	// obj.y += random(-screenScl,screenScl);
+	var noiseScl = 3+(sf);
+	var screenScl = 1000;
 
 	// move the particle on each axis by mapping the noise function, with its current position.
 	// try different variations to get different landscapes
@@ -119,3 +107,12 @@ function drawObj(obj){
 	strokeWeight(obj.w);
 	point(obj.x, obj.y);
 }
+
+///////// event listeners ////////
+
+window.addEventListener("wheel", function(e) {
+  if (e.deltaY > 0)
+    sf *= 1.1;
+  else
+    sf *= 0.98;
+});

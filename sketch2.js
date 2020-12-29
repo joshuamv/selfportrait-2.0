@@ -2,7 +2,6 @@
 
 var sf = 1; // scaleFactor
 var mx, my; // mouse coordinates
-var soul = true; //turns on and off from scale levels
 
 // create array to hold all particles
 var pts = [];
@@ -12,7 +11,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
   //create particles
-  numPts = 1000;
+  numPts = 500;
   for(var i = 0 ; i < numPts ;i++){
     pts.push( {} ); // insert new object
     pts[i].idx = i; // give it an index
@@ -45,48 +44,35 @@ function draw() {
   if (sf>300) {
     window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/page3.html");
   }
-  if (sf<329) {
-    soul = true;
-  }
-
 }
-
-window.addEventListener("wheel", function(e) {
-  if (e.deltaY > 0)
-    sf *= 1.02;
-  else
-    sf *= 0.965;
-});
 
 
 ///functions///
 
 function soulCircle(szBig,szSmall){
-  if(soul){
-    background(255, 255, 255, 50);
-    noStroke();
-    //moving shadows
-    if (sf<10) {
-      //if far show purple shadow
-      fill(150, 0, 255, 20);
-    }
-    if (sf>11) {
-      //if close delete purple shadow
-      noFill();
-    }
-    ellipse(mouseX, mouseY, 20);
-    //little ellipse pointer
-    fill(255);
-    if (sf<10) {
-      //if far show purple shadow
-      fill(255);
-    }
-    if (sf>11) {
-      //if close delete purple shadow
-      fill(0);
-    }
-    ellipse(mouseX, mouseY, 5);
+  background(255, 255, 255, 50);
+  noStroke();
+  //moving shadows
+  if (sf<10) {
+    //if far show purple shadow
+    fill(150, 0, 255, 20);
   }
+  if (sf>11) {
+    //if close delete purple shadow
+    noFill();
+  }
+  ellipse(mouseX, mouseY, 20);
+  //little ellipse pointer
+  fill(255);
+  if (sf<10) {
+    //if far show purple shadow
+    fill(255);
+  }
+  if (sf>11) {
+    //if close delete purple shadow
+    fill(0);
+  }
+  ellipse(mouseX, mouseY, 5);
 }
 
 function neuronsFire(){
@@ -104,7 +90,7 @@ function neuronsFire(){
 function initObj( obj ){
 	obj.x = random(width);
 	obj.y = random(height);
-	obj.w = random(1.01,1.9);
+	obj.w = random(1.01,1.6);
 	obj.c = [0, 0, 0];
 }
 
@@ -113,10 +99,6 @@ function updateObj(obj){
   // get values from sliders
 	var noiseScl = 2+sf*2;
 	var screenScl = 2+sf*2;
-
-	// random walk for each particle
-	// obj.x += random(-screenScl,screenScl);
-	// obj.y += random(-screenScl,screenScl);
 
 	// move the particle on each axis by mapping the noise function, with its current position.
 	// try different variations to get different landscapes
@@ -131,3 +113,13 @@ function drawObj(obj){
 	strokeWeight(obj.w);
 	point(obj.x, obj.y);
 }
+
+
+//event listener//
+
+window.addEventListener("wheel", function(e) {
+  if (e.deltaY > 0)
+    sf *= 1.02;
+  else
+    sf *= 0.965;
+});

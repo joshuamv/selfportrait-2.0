@@ -2,7 +2,6 @@
 
 var sf = 1; // scaleFactor
 var mx, my; // mouse coordinates
-var soul = true; //turns on and off from scale levels
 
 // create array to hold all particles
 var pts = [];
@@ -43,42 +42,29 @@ function draw() {
     sf = 1.5;
   }
   //when scale reaches full screen go to next page
-  if (sf>330) {
+  if (sf>320) {
     window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/page2.html");
   }
-  if (sf<329) {
-    soul = true;
-  }
-
 }
-
-window.addEventListener("wheel", function(e) {
-  if (e.deltaY > 0)
-    sf *= 1.05;
-  else
-    sf *= 0.91;
-});
 
 
 ///functions///
 
 function soulCircle(szBig,szSmall){
-  if(soul){
-    background(0, 0, 20);
-    noStroke();
-    //moving shadows
-    fill(150, 220, 255, 30);
-    ellipse((mouseX+(sin(frameCount*0.05)+1)*1.01), (mouseY-(sin(frameCount*0.06)+1)*1.08), (sin(frameCount*0.02)+19)*2.1);
-    ellipse((mouseX-(sin(frameCount*0.06)+1)*1.01), (mouseY+(sin(frameCount*0.08)+1)*1.03), (sin(frameCount*0.02)+19)*2.1);
-    ellipse((mouseX-(sin(frameCount*0.08)+1)*1.02), (mouseY+(sin(frameCount*0.05)+1)*1.01), (sin(frameCount*0.02)+19)*2.1);
-    //big ellipse
-    fill(255, 255, 255, 230);
-    ellipse(mouseX, mouseY, (sin(frameCount*0.02)+szBig));
-    //little ellipse pointer
-    fill(255);
-    ellipse(mouseX, mouseY, (sin(frameCount*0.04)+szSmall));
-  }
-  //text
+  background(0, 0, 20);
+  noStroke();
+  //moving shadows
+  fill(150, 220, 255, 30);
+  ellipse((mouseX+(sin(frameCount*0.05)+1)*1.01), (mouseY-(sin(frameCount*0.06)+1)*1.08), (sin(frameCount*0.02)+19)*2.1);
+  ellipse((mouseX-(sin(frameCount*0.06)+1)*1.01), (mouseY+(sin(frameCount*0.08)+1)*1.03), (sin(frameCount*0.02)+19)*2.1);
+  ellipse((mouseX-(sin(frameCount*0.08)+1)*1.02), (mouseY+(sin(frameCount*0.05)+1)*1.01), (sin(frameCount*0.02)+19)*2.1);
+  //big ellipse
+  fill(255, 255, 255, 230);
+  ellipse(mouseX, mouseY, (sin(frameCount*0.02)+szBig));
+  //little ellipse pointer
+  fill(255);
+  ellipse(mouseX, mouseY, (sin(frameCount*0.04)+szSmall));
+  //text for title and subtitle
   textSize(48);
   textFont("Coiny");
   fill(255, 255, 255);
@@ -137,3 +123,13 @@ function drawObj(obj){
 	strokeWeight(obj.w);
 	point(obj.x, obj.y);
 }
+
+
+///event listeners///
+
+window.addEventListener("wheel", function(e) {
+  if (e.deltaY > 0)
+    sf *= 1.05;
+  else
+    sf *= 0.91;
+});
