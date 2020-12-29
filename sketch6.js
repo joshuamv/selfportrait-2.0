@@ -43,7 +43,7 @@ function draw() {
   }
   //when scale reaches full screen go to next page
   if (sf>330) {
-    window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/index.html");
+    window.location.replace("https://joshuamv.github.io/soul");
   }
 }
 

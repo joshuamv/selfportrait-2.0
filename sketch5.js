@@ -42,7 +42,7 @@ function draw() {
   //when scale reaches full screen go to next page
   if (sf>250) {
     //clear timeout so the next page opens instantly
-    window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/page6.html");
+    window.location.replace("https://joshuamv.github.io/soul/page6");
   }
 }
 
