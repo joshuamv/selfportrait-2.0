@@ -82,15 +82,19 @@ function neuronsFire(){
 function initObj( obj ){
 	obj.x = random(width);
 	obj.y = random(height);
-	obj.w = random(1.01,1.9);
+	obj.w = random(2.01,3.9);
 	obj.c = [random(255), random(255), 200];
 }
 
 function updateObj(obj){
 
   // get values from sliders
-	var noiseScl = 30;
-	var screenScl = 1;
+	var noiseScl = 40;
+	var screenScl = 0;
+
+  if (mouseMoving) {
+    screenScl = 2
+  }
 
 	// random walk for each particle
 	// obj.x += random(-screenScl,screenScl);
@@ -113,8 +117,10 @@ function drawObj(obj){
 
 ////////event listeners///////
 
+//check when mouse moves for the first time
 document.onmousemove = function(){
   mouseMoving = true;
+  setTimeout(function(){mouseMoving = false}, 100);
 }
 
 window.addEventListener("wheel", function(e) {

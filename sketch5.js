@@ -35,12 +35,13 @@ function draw() {
   soulCircle(12,8);
   neuronsFire();
 
-  //when scale reaches 0 go to previous page
+  //when scale reaches 0 don't go to previous page
   if (sf<1) {
     sf = 2;
   }
   //when scale reaches full screen go to next page
-  if (sf>300) {
+  if (sf>250) {
+    //clear timeout so the next page opens instantly
     window.location.replace("file:///Users/Joshua/Documents/Shenkar/Year%202/Semester%20A/Code/soul/page6.html");
   }
 }
@@ -55,7 +56,7 @@ function soulCircle(szBig,szSmall){
   fill(150, 220, 255, 0);
   ellipse(mouseX, mouseY, 20);
   //little ellipse pointer
-  fill(255, 250, 230, (0.01+(sf*4)));
+  fill((200+(sf*2)), (0+(sf*2))-5, (0+(sf*2))-20, (0+(sf*2)));
   ellipse(mouseX, mouseY, 10);
 }
 
@@ -83,12 +84,18 @@ function initObj( obj ){
 	obj.y = random(height);
 	obj.w = random(1.001, 1.01);
 	obj.c = [random(100,250), random(20,50), random(3,5)];
+
 }
 
 function updateObj(obj){
 
   var noiseScl = 0.0016;
-  var screenScl = 25;
+  var screenScl = 10;
+
+  if (mouseMoving) {
+    screenScl = 70;
+    obj.c = [random(240,255), 0, 0];
+  }
 
 	// move the particle on each axis by mapping the noise function, with its current position.
 	// try different variations to get different landscapes
@@ -113,9 +120,19 @@ function drawObj(obj){
 
 ////////event listeners///////
 
+//check when mouse moves for the first time
 document.onmousemove = function(){
   mouseMoving = true;
+  setTimeout(function(){mouseMoving = false}, 100);
 }
+
+//save as png when s is pressed
+document.addEventListener('keydown', function (event) {
+  if (event.key === 's') {
+    saveCanvas('inside-the-soul', 'jpg');
+    console.log("saving your screenshot, have fun!")
+  }
+});
 
 window.addEventListener("wheel", function(e) {
   if (e.deltaY > 0)
