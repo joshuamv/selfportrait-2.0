@@ -14,4 +14,22 @@ body{
   cursor: default;
 }
 
-/* loading screens */
+/* text title */
+
+.title{
+  position: fixed;
+  bottom: 0;
+  left: 1000;
+  background-color: transparent;
+}
+
+h1{
+  color: white;
+  font-family: 'Cantata One', serif;
+  background-color: transparent;
+}
+
+p{
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}

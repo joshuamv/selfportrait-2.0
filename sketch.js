@@ -78,6 +78,14 @@ function soulCircle(szBig,szSmall){
     fill(255);
     ellipse(mouseX, mouseY, (sin(frameCount*0.04)+szSmall));
   }
+  //text
+  textSize(48);
+  textFont("Coiny");
+  fill(255, 255, 255);
+  textHeight = windowHeight - (windowHeight/20)
+  text('The Human Soul', windowWidth/8, textHeight);
+  textSize(24);
+  text('A deep dive into the secrets of the human soul.', windowWidth/8, textHeight + (windowHeight/18));
 }
 
 function neurons(){

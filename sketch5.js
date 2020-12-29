@@ -12,7 +12,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   noCursor();
   //create particles
-  numPts = 1000;
+  numPts = 100;
   for(var i = 0 ; i < numPts ;i++){
     pts.push( {} ); // insert new object
     pts[i].idx = i; // give it an index
@@ -62,16 +62,14 @@ window.addEventListener("wheel", function(e) {
 ///functions///
 
 function soulCircle(szBig,szSmall){
-  if(soul){
-    background(255, 255, 255, 255);
-    noStroke();
-    //moving shadows
-    fill(150, 220, 255, 1);
-    ellipse(mouseX, mouseY, 20);
-    //little ellipse pointer
-    fill(0, 0, 0, (50+(sf)));
-    ellipse(mouseX, mouseY, 10);
-  }
+  background(255, 255, 255, 255);
+  noStroke();
+  //moving shadows
+  fill(150, 220, 255, 1);
+  ellipse(mouseX, mouseY, 20);
+  //little ellipse pointer
+  fill(0, 0, 0, (50+(sf)));
+  ellipse(mouseX, mouseY, 10);
 }
 
 function seePointer(){
